@@ -1,5 +1,5 @@
+import 'package:Bulohaton/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:onate_json/home_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,14 +9,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Do not forget",
+      title: "Bulohaton",
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.black,
         )
       ),
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }
