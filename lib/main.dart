@@ -11,10 +11,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Bulohaton",
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
-        )
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.black,
+          )
       ),
       home: SplashScreen(),
     );

@@ -31,8 +31,8 @@ class _HomePageState extends State<HomePage> {
       constraints: BoxConstraints.expand(),
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/bg_page.png"),
-          fit: BoxFit.cover
+            image: AssetImage("assets/bg_page.png"),
+            fit: BoxFit.cover
         ),
       ),
       child: Scaffold(
@@ -41,6 +41,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text("MY-TODO",
             style: TextStyle(
+              color: Color(0xFF5F0F0A),
               fontSize: 22,
               fontWeight: FontWeight.w600,
               letterSpacing: 1,
@@ -107,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                                 child: Container(
                                   margin: EdgeInsets.all(5),
                                   decoration: BoxDecoration(
-                                    color: Colors.yellow.shade300,
+                                    color: Color(0xFFFFD689),
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black12,
@@ -172,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                                               child: Icon(
                                                 Icons.edit_note,
                                                 size: 28,
-                                                color: Colors.green,
+                                                color: Color(0xFF023047),
                                               ),
                                             ),
                                           ],
@@ -190,7 +191,7 @@ class _HomePageState extends State<HomePage> {
             ]
         ),
         floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.green,
+            backgroundColor: Color(0xFFAB2A18),
             child: Icon(Icons.add),
             onPressed: (){
               Navigator.push(context, MaterialPageRoute(
