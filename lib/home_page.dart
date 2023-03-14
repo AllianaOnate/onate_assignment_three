@@ -1,3 +1,4 @@
+import 'package:Bulohaton/about_us.dart';
 import 'package:Bulohaton/add_update_page.dart';
 import 'package:Bulohaton/db_handler.dart';
 import 'package:Bulohaton/model.dart';
@@ -37,7 +38,87 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        drawer: Drawer(),
+        drawer: Drawer(
+          child: Container(
+            color: Colors.amberAccent[100],
+            child: Center(
+              child: ListView(
+                children: [
+                  DrawerHeader(
+                      child: Icon(
+                        Icons.favorite_border,
+                        color: Colors.pink,
+                        size: 60,
+                      ),
+                  ),
+                  ListTile(
+                    leading: Icon(
+                        Icons.home_outlined,
+                        color: Color(0xFF1D4E89),
+                    ),
+                    title: Text(
+                      'Main Menu',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1D4E89),
+                        fontSize: 20,
+                      ),
+                    ),
+                    onTap: (){
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => HomePage(),
+                          ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.add,
+                      color: Color(0xFFCE5A00),
+                    ),
+                    title: Text(
+                      'Add Task',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFCE5A00),
+                        fontSize: 20,
+                      ),
+                    ),
+                    onTap: (){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AddUpdateTask(),
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.info_outline,
+                      color: Color(0xFF989E6A),
+                    ),
+                    title: Text(
+                      'About Us',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF989E6A),
+                        fontSize: 20,
+                      ),
+                    ),
+                    onTap: (){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AboutUs(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
         appBar: AppBar(
           title: Text("MY-TODO",
             style: TextStyle(
