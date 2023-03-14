@@ -15,11 +15,11 @@ class AddUpdateTask extends StatefulWidget {
   final bool? update;
 
   AddUpdateTask({
-    this.todoId, 
-    this.todoTitle, 
-    this.todoDesc, 
-    this.todoDT, 
-     this.update,
+    this.todoId,
+    this.todoTitle,
+    this.todoDesc,
+    this.todoDT,
+    this.update,
   });
 
   @override
@@ -61,7 +61,7 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
       decoration: BoxDecoration(
         image: DecorationImage(
             image: AssetImage("assets/update_bg.png"),
-          fit: BoxFit.cover
+            fit: BoxFit.cover
         ),
       ),
       child: Scaffold(
@@ -89,11 +89,17 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 20
+                            horizontal: 20
                         ),
                         child: TextFormField(
                           keyboardType: TextInputType.multiline,
                           controller: titleController,
+                          onFieldSubmitted: (String value){
+                            setState(() {
+                              titleController.text = value;
+                            });
+                          },
+                          maxLength: 20,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: "Note Title",
@@ -111,13 +117,19 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 20
+                            horizontal: 20
                         ),
                         child: TextFormField(
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                           minLines: 5,
                           controller: descController,
+                            onFieldSubmitted: (String value){
+                              setState(() {
+                                titleController.text = value;
+                              });
+                            },
+                          maxLength: 100,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: "Write your notes here",
@@ -148,24 +160,24 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                               if(widget.update == true) {
                                 dbHelper!.update(TodoModel(
                                   id: widget.todoId,
-                                title: titleController.text,
-                                desc: descController.text,
-                                dateandtime: widget.todoDT,
-                              ));
+                                  title: titleController.text,
+                                  desc: descController.text,
+                                  dateandtime: widget.todoDT,
+                                ));
                               }else{
                                 dbHelper!.insert(TodoModel(
-                                title: titleController.text,
-                                desc: descController.text,
-                                dateandtime: DateFormat('yMd')
-                                    .add_jm()
-                                    .format(DateTime.now())
-                                    .toString()
-                              ));
+                                    title: titleController.text,
+                                    desc: descController.text,
+                                    dateandtime: DateFormat('yMd')
+                                        .add_jm()
+                                        .format(DateTime.now())
+                                        .toString()
+                                ));
                               }
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context)=> HomePage()
+                                    builder: (context)=> HomePage()
                                 ),
                               );
                               titleController.clear();
@@ -173,30 +185,30 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                               print("Data successfully added");
                             }
                           },
-                        child: Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.symmetric(horizontal: 20),
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          height: 55,
-                          width: 120,
-                          decoration: BoxDecoration(
-                            // boxShadow: [
-                            //  BoxShadow(
-                            //    color: Colors.black12,
-                            //    blurRadius: 5,
-                            //    spreadRadius: 1,
-                            //  ),
-                            //],
-                          ),
-                          child: Text(
-                            "Submit",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
+                          child: Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            height: 55,
+                            width: 120,
+                            decoration: BoxDecoration(
+                              // boxShadow: [
+                              //  BoxShadow(
+                              //    color: Colors.black12,
+                              //    blurRadius: 5,
+                              //    spreadRadius: 1,
+                              //  ),
+                              //],
+                            ),
+                            child: Text(
+                              "Submit",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
                         ),
                       ),
                       Material(
@@ -209,36 +221,36 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                               descController.clear();
                             });
                           },
-                        child: Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.symmetric(horizontal: 20),
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          height: 55,
-                          width: 120,
-                          decoration: BoxDecoration(
-                            // boxShadow: [
-                            //  BoxShadow(
-                            //    color: Colors.black12,
-                            //    blurRadius: 5,
-                            //    spreadRadius: 1,
-                            //  ),
-                            //],
-                          ),
-                          child: Text(
-                            "Clear",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
+                          child: Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            height: 55,
+                            width: 120,
+                            decoration: BoxDecoration(
+                              // boxShadow: [
+                              //  BoxShadow(
+                              //    color: Colors.black12,
+                              //    blurRadius: 5,
+                              //    spreadRadius: 1,
+                              //  ),
+                              //],
+                            ),
+                            child: Text(
+                              "Clear",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
                         ),
                       ),
                     ],
                   ),
                 ),
-               ],
+              ],
             ),
           ),
         ),
