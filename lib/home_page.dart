@@ -1,5 +1,6 @@
 import 'package:Bulohaton/about_us.dart';
 import 'package:Bulohaton/add_update_page.dart';
+import 'package:Bulohaton/calculator.dart';
 import 'package:Bulohaton/db_handler.dart';
 import 'package:Bulohaton/model.dart';
 import 'package:flutter/material.dart';
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: (){
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => AddUpdateTask(),
+                          builder: (context) => Calculator(),
                         ),
                       );
                     },

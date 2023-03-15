@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           appBarTheme: AppBarTheme(
             backgroundColor: Colors.transparent,
-            foregroundColor: Colors.black,
+            foregroundColor: Colors.yellow,
           )
       ),
       home: SplashScreen(),
