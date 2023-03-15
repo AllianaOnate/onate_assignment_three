@@ -47,6 +47,8 @@ class _AboutUsState extends State<AboutUs> {
                 ),
               ),
               alignment: Alignment.bottomCenter,
+              height: 200,
+              width: 200,
             )
           ],
         ),

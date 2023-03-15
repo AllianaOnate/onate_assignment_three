@@ -45,16 +45,16 @@ class _HomePageState extends State<HomePage> {
               child: ListView(
                 children: [
                   DrawerHeader(
-                      child: Icon(
-                        Icons.favorite_border,
-                        color: Colors.pink,
-                        size: 60,
-                      ),
+                    child: Icon(
+                      Icons.favorite_border,
+                      color: Colors.pink,
+                      size: 60,
+                    ),
                   ),
                   ListTile(
                     leading: Icon(
-                        Icons.home_outlined,
-                        color: Color(0xFF1D4E89),
+                      Icons.home_outlined,
+                      color: Color(0xFF1D4E89),
                     ),
                     title: Text(
                       'Main Menu',
@@ -66,9 +66,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onTap: (){
                       Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => HomePage(),
-                          ),
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(),
+                        ),
                       );
                     },
                   ),
@@ -82,6 +82,27 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Color(0xFFCE5A00),
+                        fontSize: 20,
+                      ),
+                    ),
+                    onTap: (){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AddUpdateTask(),
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.calculate_outlined,
+                      color: Color(0xFFD782BA),
+                    ),
+                    title: Text(
+                      'Calculator',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFD782BA),
                         fontSize: 20,
                       ),
                     ),
