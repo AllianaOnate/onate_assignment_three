@@ -1,6 +1,7 @@
 import 'package:Bulohaton/about_us.dart';
 import 'package:Bulohaton/add_update_page.dart';
 import 'package:Bulohaton/calculator.dart';
+import 'package:Bulohaton/calendar.dart';
 import 'package:Bulohaton/db_handler.dart';
 import 'package:Bulohaton/model.dart';
 import 'package:Bulohaton/pick_image.dart';
@@ -97,6 +98,27 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ListTile(
                     leading: Icon(
+                      Icons.calculate_outlined,
+                      color: Color(0xFFE0144C),
+                    ),
+                    title: Text(
+                      'Calendar',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFE0144C),
+                        fontSize: 20,
+                      ),
+                    ),
+                    onTap: (){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Calendar(),
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
                       Icons.browse_gallery_outlined,
                       color: Color(0xFFD782BA),
                     ),
@@ -122,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                       color: Color(0xFF7DB954),
                     ),
                     title: Text(
-                      'Image Viewe',
+                      'Image Viewer',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF7DB954),
