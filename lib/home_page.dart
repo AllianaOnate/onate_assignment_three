@@ -3,6 +3,7 @@ import 'package:Bulohaton/add_update_page.dart';
 import 'package:Bulohaton/calculator.dart';
 import 'package:Bulohaton/db_handler.dart';
 import 'package:Bulohaton/model.dart';
+import 'package:Bulohaton/pick_image.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -96,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ListTile(
                     leading: Icon(
-                      Icons.calculate_outlined,
+                      Icons.browse_gallery_outlined,
                       color: Color(0xFFD782BA),
                     ),
                     title: Text(
@@ -111,6 +112,27 @@ class _HomePageState extends State<HomePage> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => Calculator(),
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.calculate_outlined,
+                      color: Color(0xFF7DB954),
+                    ),
+                    title: Text(
+                      'Image Viewe',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF7DB954),
+                        fontSize: 20,
+                      ),
+                    ),
+                    onTap: (){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => PickImage(),
                         ),
                       );
                     },
