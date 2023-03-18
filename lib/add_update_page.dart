@@ -99,7 +99,7 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                               titleController.text = value;
                             });
                           },
-                          maxLength: 20,
+                          maxLength: 50,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: "Note Title",
@@ -129,7 +129,7 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                                 titleController.text = value;
                               });
                             },
-                          maxLength: 100,
+                          maxLength: 300,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: "Write your notes here",
