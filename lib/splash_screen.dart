@@ -41,8 +41,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
             ..duration = compos.duration
             ..forward().then((value) {
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context)=> WelcomePage()
-              ));
+                  builder: (context)=> LoginPage()              ));
             });
           }),
           //Center(

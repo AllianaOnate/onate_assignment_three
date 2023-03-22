@@ -6,6 +6,7 @@ import 'package:Bulohaton/db_handler.dart';
 import 'package:Bulohaton/model.dart';
 import 'package:Bulohaton/pick_image.dart';
 import 'package:flutter/material.dart';
+import 'auth_controller.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -180,13 +181,30 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                   ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.logout_outlined,
+                      color: Colors.black,
+                    ),
+                    title: Text(
+                      'Log Out',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                    onTap: (){
+                      AuthController.instance.logOut();
+                    },
+                  ),
                 ],
               ),
             ),
           ),
         ),
         appBar: AppBar(
-          title: Text("MY-TODO",
+          title: Text("BULOHATON",
             style: TextStyle(
               color: Color(0xFF5F0F0A),
               fontSize: 22,

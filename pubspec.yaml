@@ -47,6 +47,9 @@ dependencies:
   get_it: ^7.2.0
   image_picker: ^0.8.6
   table_calendar: ^3.0.8
+  get:
+  firebase_auth: ^4.3.0
+  firebase_core: ^2.8.0
 
 dev_dependencies:
   flutter_test:
