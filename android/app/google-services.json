@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1049385307498",
+    "project_id": "bulohaton-app",
+    "storage_bucket": "bulohaton-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049385307498:android:d5f53f6ca4cf29c2ebe913",
+        "android_client_info": {
+          "package_name": "com.example.onate_assignment_three"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049385307498-oe9aabr8d346grjm2njgnrq6ftssjvj7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAv7YeYCbGRP1foc0VUD5PqVVGRL-SiKGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049385307498-oe9aabr8d346grjm2njgnrq6ftssjvj7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

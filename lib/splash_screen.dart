@@ -1,4 +1,5 @@
 import 'package:Bulohaton/home_page.dart';
+import 'package:Bulohaton/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -38,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
             ..duration = compos.duration
             ..forward().then((value) {
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context)=>HomePage()
+                  builder: (context)=>LoginPage()
               ));
             });
           }),

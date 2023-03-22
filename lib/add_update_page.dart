@@ -99,7 +99,7 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                               titleController.text = value;
                             });
                           },
-                          maxLength: 50,
+                          maxLength: 100,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: "Note Title",
