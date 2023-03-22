@@ -89,7 +89,8 @@ flutter:
       - assets/welcome_page_bg.png
       - assets/bulohaton_header.png
       - assets/login_button.png
-
+      - assets/sign_header.png
+      - assets/profile_icon_white.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
