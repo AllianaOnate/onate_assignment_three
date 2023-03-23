@@ -1,6 +1,8 @@
 import 'package:Bulohaton/db_handler.dart';
 import 'package:Bulohaton/home_page.dart';
 import 'package:Bulohaton/model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -33,15 +35,29 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
 
   final _formKey = GlobalKey<FormState>();
 
+  late String todoTitle;
+  late String todoDesc;
+
   @override
   void initState() {
     super.initState();
     dbHelper = DBHelper();
-    loadData();
+
   }
 
-  loadData() async {
-    dataList = dbHelper!.getDataList();
+  void data() async {
+    CollectionReference ref = FirebaseFirestore
+        .instance.collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection('notes');
+
+    var data = {
+      'title': todoTitle,
+      'description': todoDesc,
+      'created': DateTime.now(),
+    };
+    ref.add(data);
+    Navigator.pop(context);
   }
 
   @override
@@ -104,6 +120,9 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                             border: OutlineInputBorder(),
                             hintText: "Note Title",
                           ),
+                          onChanged: (_val){
+                            todoTitle = _val;
+                          },
                           validator: (value){
                             if (value!.isEmpty){
                               return "Enter some text";
@@ -124,16 +143,19 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                           maxLines: null,
                           minLines: 5,
                           controller: descController,
-                            onFieldSubmitted: (String value){
-                              setState(() {
-                                titleController.text = value;
-                              });
-                            },
+                          onFieldSubmitted: (String value){
+                            setState(() {
+                              titleController.text = value;
+                            });
+                          },
                           maxLength: 300,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: "Write your notes here",
                           ),
+                          onChanged: (_val){
+                            todoDesc = _val;
+                          },
                           validator: (value){
                             if (value!.isEmpty){
                               return "Enter some text";
@@ -155,7 +177,7 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                         color: Colors.green[400],
                         borderRadius: BorderRadius.circular(10),
                         child: InkWell(
-                          onTap: (){
+                          onTap: () async {
                             if(_formKey.currentState!.validate()){
                               if(widget.update == true) {
                                 dbHelper!.update(TodoModel(

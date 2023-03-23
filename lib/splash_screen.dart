@@ -1,3 +1,4 @@
+import 'package:Bulohaton/add_update_page.dart';
 import 'package:Bulohaton/home_page.dart';
 import 'package:Bulohaton/login_page.dart';
 import 'package:Bulohaton/signup_page.dart';

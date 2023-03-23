@@ -2,8 +2,13 @@ import 'package:Bulohaton/home_page.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
+
   String email;
-  WelcomePage({Key? key, required this.email}) : super(key: key);
+  var data;
+  var time;
+  var ref;
+
+  WelcomePage({Key? key, required this.email, this.data, this.time, this.ref}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,46 +27,46 @@ class WelcomePage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+            child: Column(
+              children: [
+                SizedBox(height: h*0.16),
+                CircleAvatar(
+                  backgroundColor: Colors.pink,
+                  radius: 40,
+                  backgroundImage: AssetImage(
+                      "assets/profile_icon_white.png"
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: w,
+            margin: EdgeInsets.only(left: 20),
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: h*0.16),
-                  CircleAvatar(
-                    backgroundColor: Colors.pink,
-                    radius: 40,
-                    backgroundImage: AssetImage(
-                        "assets/profile_icon_white.png"
+                  Text(
+                    "Welcome",
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.yellow,
+                    ),
+                  ),
+                  Text(
+                    email,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.grey[600],
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          Container(
-            width: w,
-            margin: EdgeInsets.only(left: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Welcome",
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.yellow,
-                  ),
-                ),
-                Text(
-                  email,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ],
-            ),
-          ),
-            SizedBox(height: 100),
+            SizedBox(height: 50),
           GestureDetector(
             onTap: (){
               Navigator.of(context).push(
