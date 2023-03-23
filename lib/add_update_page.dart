@@ -4,13 +4,9 @@ import 'package:Bulohaton/model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-
 
 class AddUpdateTask extends StatefulWidget {
-
-  final int? todoId;
+  final String? todoId;
   final String? todoTitle;
   final String? todoDesc;
   final String? todoDT;
@@ -29,7 +25,6 @@ class AddUpdateTask extends StatefulWidget {
 }
 
 class _AddUpdateTaskState extends State<AddUpdateTask> {
-
   DBHelper? dbHelper;
   late Future<List<TodoModel>> dataList;
 
@@ -42,12 +37,11 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
   void initState() {
     super.initState();
     dbHelper = DBHelper();
-
   }
 
   void data() async {
-    CollectionReference ref = FirebaseFirestore
-        .instance.collection('users')
+    CollectionReference ref = FirebaseFirestore.instance
+        .collection('users')
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection('notes');
 
@@ -65,20 +59,17 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
     final titleController = TextEditingController(text: widget.todoTitle);
     final descController = TextEditingController(text: widget.todoDesc);
     String appTitle;
-    if (widget.update == true){
+    if (widget.update == true) {
       appTitle = "Update Task";
-    } else{
+    } else {
       appTitle = "Add Task";
     }
-
 
     return Container(
       constraints: BoxConstraints.expand(),
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage("assets/update_bg.png"),
-            fit: BoxFit.cover
-        ),
+            image: AssetImage("assets/update_bg.png"), fit: BoxFit.cover),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -104,13 +95,11 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
                         child: TextFormField(
                           keyboardType: TextInputType.multiline,
                           controller: titleController,
-                          onFieldSubmitted: (String value){
+                          onFieldSubmitted: (String value) {
                             setState(() {
                               titleController.text = value;
                             });
@@ -120,11 +109,11 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                             border: OutlineInputBorder(),
                             hintText: "Note Title",
                           ),
-                          onChanged: (_val){
+                          onChanged: (_val) {
                             todoTitle = _val;
                           },
-                          validator: (value){
-                            if (value!.isEmpty){
+                          validator: (value) {
+                            if (value!.isEmpty) {
                               return "Enter some text";
                             }
                             return null;
@@ -135,15 +124,13 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                         height: 10,
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
                         child: TextFormField(
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                           minLines: 5,
                           controller: descController,
-                          onFieldSubmitted: (String value){
+                          onFieldSubmitted: (String value) {
                             setState(() {
                               titleController.text = value;
                             });
@@ -153,11 +140,11 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                             border: OutlineInputBorder(),
                             hintText: "Write your notes here",
                           ),
-                          onChanged: (_val){
+                          onChanged: (_val) {
                             todoDesc = _val;
                           },
-                          validator: (value){
-                            if (value!.isEmpty){
+                          validator: (value) {
+                            if (value!.isEmpty) {
                               return "Enter some text";
                             }
                             return null;
@@ -178,29 +165,46 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                         borderRadius: BorderRadius.circular(10),
                         child: InkWell(
                           onTap: () async {
-                            if(_formKey.currentState!.validate()){
-                              if(widget.update == true) {
-                                dbHelper!.update(TodoModel(
-                                  id: widget.todoId,
-                                  title: titleController.text,
-                                  desc: descController.text,
-                                  dateandtime: widget.todoDT,
-                                ));
-                              }else{
-                                dbHelper!.insert(TodoModel(
-                                    title: titleController.text,
-                                    desc: descController.text,
-                                    dateandtime: DateFormat('yMd')
-                                        .add_jm()
-                                        .format(DateTime.now())
-                                        .toString()
-                                ));
+                            if (_formKey.currentState!.validate()) {
+                              CollectionReference ref = FirebaseFirestore
+                                  .instance
+                                  .collection('users')
+                                  .doc(FirebaseAuth.instance.currentUser?.uid)
+                                  .collection('notes');
+                              if (widget.update == true) {
+                                // dbHelper!.update(
+                                //   TodoModel(
+                                //     id: widget.todoId,
+                                //     title: titleController.text,
+                                //     desc: descController.text,
+                                //     dateandtime: widget.todoDT,
+                                //   ),
+                                // );
+                                await ref.doc(widget.todoId.toString()).update({
+                                  'title': titleController.text,
+                                  'desc': descController.text,
+                                });
+                              } else {
+                                // dbHelper!.insert(
+                                //   TodoModel(
+                                //     title: titleController.text,
+                                //     desc: descController.text,
+                                //     dateandtime: DateFormat('yMd')
+                                //         .add_jm()
+                                //         .format(DateTime.now())
+                                //         .toString(),
+                                //   ),
+                                // );
+                                await ref.add({
+                                  'title': titleController.text,
+                                  'desc': descController.text,
+                                  'date': DateTime.now(),
+                                });
                               }
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context)=> HomePage()
-                                ),
+                                    builder: (context) => HomePage()),
                               );
                               titleController.clear();
                               descController.clear();
@@ -237,11 +241,9 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                         color: Colors.red[400],
                         borderRadius: BorderRadius.circular(10),
                         child: InkWell(
-                          onTap: (){
-                            setState(() {
-                              titleController.clear();
-                              descController.clear();
-                            });
+                          onTap: () {
+                            titleController.clear();
+                            descController.clear();
                           },
                           child: Container(
                             alignment: Alignment.center,

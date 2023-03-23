@@ -6,24 +6,22 @@ import 'package:Bulohaton/calendar.dart';
 import 'package:Bulohaton/db_handler.dart';
 import 'package:Bulohaton/model.dart';
 import 'package:Bulohaton/pick_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
-
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   DBHelper? dbHelper;
   late Future<List<TodoModel>> dataList;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     dbHelper = DBHelper();
     loadData();
@@ -39,9 +37,7 @@ class _HomePageState extends State<HomePage> {
       constraints: BoxConstraints.expand(),
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage("assets/bg_page.png"),
-            fit: BoxFit.cover
-        ),
+            image: AssetImage("assets/bg_page.png"), fit: BoxFit.cover),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -71,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                       ),
                     ),
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => HomePage(),
@@ -92,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                       ),
                     ),
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => AddUpdateTask(),
@@ -113,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                       ),
                     ),
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => Calendar(),
@@ -134,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                       ),
                     ),
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => Calculator(),
@@ -155,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                       ),
                     ),
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => PickImage(),
@@ -176,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                       ),
                     ),
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => AboutUs(),
@@ -197,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                       ),
                     ),
-                    onTap: (){
+                    onTap: () {
                       AuthController.instance.logOut();
                     },
                   ),
@@ -207,7 +203,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         appBar: AppBar(
-          title: Text("BULOHATON",
+          title: Text(
+            "BULOHATON",
             style: TextStyle(
               color: Color(0xFF5F0F0A),
               fontSize: 22,
@@ -227,144 +224,154 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        body: Column(
-            children: [
-              Expanded(
-                child: FutureBuilder(
-                    future: dataList,
-                    builder: (context, AsyncSnapshot<List<TodoModel>> snapshot){
-                      if(!snapshot.hasData || snapshot.data == null){
-                        return Center(
-                            child: CircularProgressIndicator()
-                        );
-                      } else if (snapshot.data!.length == 0) {
-                        return Center(
-                            child: Text("No Tasks Found",
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
+        body: Column(children: [
+          Expanded(
+            child: FutureBuilder(
+              // future: dataList,
+                future: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(FirebaseAuth.instance.currentUser?.uid)
+                    .collection('notes')
+                    .get(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData || snapshot.data == null) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.data!.docs.length == 0) {
+                    return Center(
+                        child: Text(
+                          "No Tasks Found",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ));
+                  } else {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        // int todoId = snapshot.data!.docs[index].id!.toInt();
+                        // String todoTitle = snapshot.data![index].title.toString();
+                        // String todoDesc = snapshot.data![index].desc.toString();
+                        // String todoDT = snapshot.data![index].dateandtime.toString();
+                        String todoId = snapshot.data!.docs[index].id;
+                        String todoTitle = snapshot.data!.docs[index]['title'];
+                        String todoDesc =
+                        snapshot.data!.docs[index]['desc'].toString();
+                        String todoDT =
+                        snapshot.data!.docs[index]['date'].toString();
+                        DateTime myDateTime =
+                        snapshot.data!.docs[index]['date'].toDate();
+                        return Dismissible(
+                            key: UniqueKey(),
+                            direction: DismissDirection.endToStart,
+                            background: Container(
+                              color: Colors.red,
+                              child: Icon(
+                                Icons.delete_forever,
+                                color: Colors.white,
                               ),
-                            )
-                        );
-                      } else {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data?.length,
-                          itemBuilder: (context, index){
-                            int todoId = snapshot.data![index].id!.toInt();
-                            String todoTitle = snapshot.data![index].title.toString();
-                            String todoDesc = snapshot.data![index].desc.toString();
-                            String todoDT = snapshot.data![index].dateandtime.toString();
-                            return Dismissible(
-                                key: ValueKey<int>(todoId),
-                                direction: DismissDirection.endToStart,
-                                background: Container(
-                                  color: Colors.red,
-                                  child: Icon(
-                                    Icons.delete_forever,
-                                    color: Colors.white,
+                            ),
+                            onDismissed: (DismissDirection direction) async {
+                              snapshot.data!.docs[index].reference.delete();
+                              setState(() {
+
+                              });
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Color(0xFFFFD689),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 4,
+                                    spreadRadius: 1,
                                   ),
-                                ),
-                                onDismissed: (DismissDirection direction){
-                                  setState(() {
-                                    dbHelper!.delete(todoId);
-                                    dataList = dbHelper!.getDataList();
-                                    snapshot.data!.remove(snapshot.data![index]);
-                                  });
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFFFD689),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black12,
-                                        blurRadius: 4,
-                                        spreadRadius: 1,
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    contentPadding: EdgeInsets.all(10),
+                                    title: Padding(
+                                      padding: EdgeInsets.only(bottom: 10),
+                                      child: Text(
+                                        todoTitle,
+                                        style: TextStyle(fontSize: 19),
                                       ),
-                                    ],
+                                    ),
+                                    subtitle: Text(
+                                      todoDesc,
+                                      style: TextStyle(fontSize: 17),
+                                    ),
                                   ),
-                                  child: Column(
-                                    children: [
-                                      ListTile(
-                                        contentPadding: EdgeInsets.all(10),
-                                        title: Padding(
-                                          padding: EdgeInsets.only(bottom: 10),
-                                          child: Text(
-                                            todoTitle,
-                                            style: TextStyle(fontSize: 19),
-                                          ),
-                                        ),
-                                        subtitle: Text(
-                                          todoDesc,
+                                  Divider(
+                                    color: Colors.black,
+                                    thickness: 0.8,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 3,
+                                      horizontal: 10,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          DateFormat.yMMMd()
+                                              .add_jm()
+                                              .format(myDateTime),
                                           style: TextStyle(
-                                              fontSize: 17
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            fontStyle: FontStyle.italic,
                                           ),
                                         ),
-                                      ),
-                                      Divider(
-                                        color: Colors.black,
-                                        thickness: 0.8,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 3,
-                                          horizontal: 10,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              todoDT,
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                fontStyle: FontStyle.italic,
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: (){
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) => AddUpdateTask(
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AddUpdateTask(
                                                         todoId: todoId,
                                                         todoTitle: todoTitle,
                                                         todoDesc: todoDesc,
                                                         todoDT: todoDT,
                                                         update: true,
                                                       ),
-                                                    )
-                                                );
-                                              },
-                                              child: Icon(
-                                                Icons.edit_note,
-                                                size: 28,
-                                                color: Color(0xFF023047),
-                                              ),
-                                            ),
-                                          ],
+                                                ));
+                                          },
+                                          child: Icon(
+                                            Icons.edit_note,
+                                            size: 28,
+                                            color: Color(0xFF023047),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                )
-                            );
-                          },
-                        );
-                      }
-                    }
-                ),),
-            ]
-        ),
+                                ],
+                              ),
+                            ));
+                      },
+                    );
+                  }
+                }),
+          ),
+        ]),
         floatingActionButton: FloatingActionButton(
             backgroundColor: Color(0xFFAB2A18),
             child: Icon(Icons.add),
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context)=> AddUpdateTask(),
-              ));
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddUpdateTask(),
+                  ));
             }),
       ),
     );

@@ -22,12 +22,6 @@ class _LoginPageState extends State<LoginPage> {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.pinkAccent,
-        leading: BackButton(
-          color: Colors.yellow,
-        ),
-      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
